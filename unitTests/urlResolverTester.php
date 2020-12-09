@@ -131,7 +131,7 @@
             /* to be implemented */
         }
 
-        public static function runTest()
+        public static function runTests()
         {
 
             self::test_currentDirectoryRelativeHrefCase();
@@ -165,7 +165,7 @@
         }
         
     }
-    
+
     ini_set("log_errors", 0);
-    urlResolverTester::runTest();
+    urlResolverTester::runTests();
 ?>

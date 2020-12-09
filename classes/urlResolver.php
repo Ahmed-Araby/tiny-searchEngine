@@ -8,9 +8,15 @@ responsibility of this class is
 to resolve all href of the anchor links in the pages
 that we crawle to be an absolute url.
 
+
 input:
 
-class will take href and base url of the current site.
+href of some anchor from the current site HTML document and base url of the current site.
+
+output: 
+
+return absolute url that lead to the same destionation 
+as if we clicked on the anchor of the href we have.
 
 Cases:
 

@@ -3,6 +3,10 @@ log_errors
 display_errors 
 ini_set(errorType as string, 1 for yes - 0 for no); -> on run time 
 
+#explode function 
+if it was given invalid input for ex null, empty string, 
+it will return an array with only one element = empty string.
+
 
 
 

@@ -64,4 +64,52 @@ newLine();
 
 */
 
+
+// tets curl function 
+// test reedirection using curl
+$url = "https://www.php.net/manual/en";
+$curl = curl_init();
+curl_setopt_array($curl,
+    array(
+        CURLOPT_URL => $url, 
+        CURLOPT_HEADER => false,  // dont return the headers in the response. 
+        CURLOPT_RETURNTRANSFER => true   // prevent the extension from printing the response. 
+    )
+);
+
+$data = curl_exec($curl);
+$headersSize  = curl_getinfo($curl, CURLINFO_HEADER_SIZE );
+$headers = substr($data, 0, $headersSize);
+var_dump($headers);
+newLine();
+newLine();
+
+$statusCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+$contentType = curl_getinfo($curl, CURLINFO_CONTENT_TYPE);
+
+echo "status code " . $statusCode;
+newLine();
+echo "content type -- $contentType";
+newLine();
+echo "header size -- $headersSize";
+newLine();
+newLine();
+
+echo "additional info : " . curl_getinfo($curl, CURLINFO_REDIRECT_URL);
+newLine();
+echo gettype($statusCode);
+newLine();
+$arr = explode(";", $contentType);
+var_dump($arr);
+newLine();
+
+$contentType = null;
+echo gettype($contentType);
+newLine();
+$contentType = explode(';', $contentType)[0];
+$contentType = strtolower($contentType);
+echo "type -- " . $contentType;
+newLine();
+var_dump(explode('1', null));
+newLine();
 ?>
