@@ -1,0 +1,11 @@
+# error setting in php
+log_errors
+display_errors 
+ini_set(errorType as string, 1 for yes - 0 for no); -> on run time 
+
+
+
+
+# questions and answers 
+Q/ why php print error twice ?
+https://stackoverflow.com/questions/9001911/why-are-php-errors-printed-twice
