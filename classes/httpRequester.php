@@ -19,12 +19,14 @@
  * 
  * 
  */
+ 
+ require_once "urlResolver.php";
 
  function newLine()
  {
      echo "\n";
  }
-
+ 
  class httpRequester
  {
      private static $redirected = false;
@@ -64,6 +66,8 @@
         /**get redirection codes !!??
          * wiered different kinds of redirectin
          * including (permeneant and temporary).
+         * 
+         * take care as redirection url could be absolute or relative
          */        
         
         if ($statusCode >=300  && 
@@ -73,11 +77,11 @@
             self::$redirected = true; //no more than 1 redirection., feels like lock.
             
             $redirectionUrl = curl_getinfo($curl, CURLINFO_REDIRECT_URL);
-
-            $response = self::request($redirectionUrl);
+            $absoluteRedirectionUrl = urlResolver::resolve($url, $redirectionUrl);
+            $response = self::request($absoluteRedirectionUrl);
             
             $response['redirection'] = true;
-            $response['redirection_url'] = $redirectionUrl;
+            $response['redirection_url'] = $absoluteRedirectionUrl;
             
             self::$redirected = false;
         }
