@@ -21,11 +21,7 @@
  */
  
  require_once "urlResolver.php";
-
- function newLine()
- {
-     echo "\n";
- }
+ require_once "HELPERS.php";
  
  class httpRequester
  {

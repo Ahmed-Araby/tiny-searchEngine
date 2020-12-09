@@ -65,8 +65,12 @@ newLine();
 */
 
 
+/*
 // tets curl function 
 // test reedirection using curl
+// test code status 
+// test type of returned information 
+
 $url = "https://www.php.net/manual/en";
 $curl = curl_init();
 curl_setopt_array($curl,
@@ -112,4 +116,9 @@ echo "type -- " . $contentType;
 newLine();
 var_dump(explode('1', null));
 newLine();
+*/
+
+// testing parser
+
+
 ?>
