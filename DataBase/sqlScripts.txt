@@ -10,12 +10,15 @@ create table pages(
     key_words text default ""
 );
 
+
 create table images(
     id integer PRIMARY key AUTO_INCREMENT, 
-    url text not null unique, 
+    url text not null, 
     page_fk integer,
-    FOREIGN key (page_fk) REFERENCES pages(id)
+    FOREIGN key (page_fk) REFERENCES pages(id), 
+    CONSTRAINT uq_img UNIQUE(url, page_fk)
 );
+
 
 create table pointing(
 parent_page_fk integer, 

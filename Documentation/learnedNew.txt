@@ -15,3 +15,6 @@ Q/ why php print error twice ?
 https://stackoverflow.com/questions/9001911/why-are-php-errors-printed-twice
 
 https://stackoverflow.com/questions/13283381/row-size-too-large-error-in-mysql-create-table-query
+
+- add unique constraint to more than 1 column combined
+https://stackoverflow.com/questions/15800250/add-unique-constraint-to-combination-of-two-columns

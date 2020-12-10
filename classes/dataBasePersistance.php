@@ -30,6 +30,30 @@ class dataBasePersistance
         }
         return ;
     }
+
+    public static function insertImg($imgUrl, $parentPageId)
+    {
+        try{
+            self::connect();
+
+            $insertQuery = "insert into images (url, page_fk) values (? , ?)";
+            $stmt = self::$pdo->prepare($insertQuery);
+            $stmt->bindValue(1, $imgUrl);
+            $stmt->bindValue(2, $parentPageId);
+            $success = $stmt->execute();
+            if(!$success)
+                throw new Exception("failure in inserting image url");
+        }
+
+        catch (Exception $e)
+        {
+            newLine();
+            echo $e;
+            newLine();
+            return false;
+        }
+        return true;
+    }
     
     public static function insertPage($url, $metaData)
     {

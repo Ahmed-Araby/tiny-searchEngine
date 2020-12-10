@@ -108,19 +108,42 @@ class dataBasePersistanceTester
         }
     }
 
+    private static function test_insertImage()
+    {
+        $imgUrl = "https://www.google.com/images3/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
+        $success1 = dataBasePersistance::insertImg($imgUrl, 0);
+        $success2 = dataBasePersistance::insertImg($imgUrl, 4);
+        
+        if(!$success1 ||
+             !$success2)
+            throw new Exception("test_insertImage : image should be inserted");
+        return true;
+    }
+
+    private static function test_insertImageParentNotExist()
+    {
+        $imgUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
+        $success1 = dataBasePersistance::insertImg($imgUrl, 125);
+        if(!$success1)
+            throw new Exception("test_insertImage : image should be inserted");
+        return true;
+    }
+
     public static function runTests()
     {
+        /*we need to alter data in the data base 
+        in order to pass all theses tests*/
+
+        self::test_insertImage();
+        self::test_insertImageParentNotExist();
+        
         self::test_getUrlId_notExistUrl();
         self::test_getUrlId_existUrl();
         self::test_insertPage_pageNotExist();
         self::test_insertPage_pageExist();
-
-        // we need to provide new values inside the test
         self::test_insertPointing_notExist(); 
-        
-        //self::test_insertPointing_pages_not_exist();
-        //self::test_insertPointing_Exist();
-
+        self::test_insertPointing_pages_not_exist();
+        self::test_insertPointing_Exist();
         newLine();
         echo "[ success in testing  dataBasePersistance class]";
         newLine();
