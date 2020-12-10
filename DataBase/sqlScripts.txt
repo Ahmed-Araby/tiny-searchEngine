@@ -17,13 +17,12 @@ create table images(
     FOREIGN key (page_fk) REFERENCES pages(id)
 );
 
-
 create table pointing(
-pointer_page_fk integer, 
-pointed_page_fk integer,
-FOREIGN KEY (pointer_page_fk) REFERENCES pages(id),
-FOREIGN KEY (pointed_page_fk) REFERENCES pages(id),
-PRIMARY key pointing_id (pointer_page_fk, pointed_page_fk)
+parent_page_fk integer, 
+child_page_fk integer,
+FOREIGN KEY (parent_page_fk) REFERENCES pages(id),
+FOREIGN KEY (child_page_fk) REFERENCES pages(id),
+PRIMARY key pointing_id (parent_page_fk, child_page_fk)
 );
 
 insert into pages (id, url) values (0, "https://www.google.com/");

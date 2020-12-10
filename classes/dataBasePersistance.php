@@ -38,10 +38,13 @@ class dataBasePersistance
          * return it's id back 
          * handle inserting a duplicate 
          * 
-         * will return the id of the url in both cases (newly inserted, already exist);
+         * will return the id of the url 
+         * in both cases (newly inserted, already exist);
+         * id = 
+         * -1 -- not exist 
+         * >=0 exist
          */
 
-        self::connect();
         $urlId = self::getUrlId($url);
         if($urlId >=0)
             return $urlId;
@@ -53,7 +56,9 @@ class dataBasePersistance
 
         // insert into the dataBase         
         try{
-            $insertQuery = "insert into pages (url, title, description, keywords) values (?, ?, ?, ?)";
+            self::connect();
+
+            $insertQuery = "insert into pages (url, title, description, key_words) values (?, ?, ?, ?)";
             $stmt = self::$pdo->prepare($insertQuery);
             $stmt->bindValue(1, $url);
             $stmt->bindValue(2, $title);
@@ -62,21 +67,45 @@ class dataBasePersistance
             $success = $stmt->execute();
             if(!$success)
                 throw new Exception("execute failed in insert page");
-            $newPageId = self::$pdo->lastInsertedId();
+            $newPageId = self::$pdo->lastInsertId();
             return $newPageId;
         }
 
         catch(Exception $e){
             newLine();
-            echo "exception at insertPage " . $e;
+            echo $e;
             newLine();
             return 0; // google id. 
         }
     }
 
-    public static function insertPointing()
+    public static function insertPointing($parentPageId, $childPageId)
     {
-        throw new Exception("not implemented yet");
+        /** parent url point at child url  
+         * returns 
+            * true if insertion success 
+            * false if insertion failed.
+        */
+        try{
+            self::connect();
+
+            $query = "insert into pointing  values(?, ?)";
+            $stmt = self::$pdo->prepare($query);
+            $stmt->bindValue(1, $parentPageId);
+            $stmt->bindValue(2, $childPageId);
+            $success = $stmt->execute();
+            if(!$success)
+                throw new Exception("failure in inserting pointing record");
+        }
+        catch (Exception $e) {
+            /** unique constraint may have been violated */
+            newLine();
+            echo $e;
+            newLine();
+            return false;
+        }
+
+        return true;
     }
 
     public static function getUrlId($url)
@@ -87,22 +116,21 @@ class dataBasePersistance
         * if the id is >=0 then the url exist with the returned id
         */
 
-        self::connect();
         try{
+            self::connect();
+
             $selectQuery = "select id from pages where url = ?";
             $stmt = self::$pdo->prepare($selectQuery);
             $stmt->bindValue(1, $url);
-            
             $stmt->execute();
             $row = $stmt->fetch();
-            if($row === false){
-                echo "not exist";
-                return -1;
-            }
 
+            if($row === false)
+                return -1;
             $id = $row['id'];
-            echo "exist with id : " . $id;
+            return $id;
         }
+
         catch(Exception $e){
             /*
             * don't hult the crawler for this issue
@@ -111,12 +139,12 @@ class dataBasePersistance
             */
 
             newLine();
-            echo "exception at urlExist " . $e;
+            echo $e;
             newLine();
             return 0; // google id. 
         }
     }
 
 }
-dataBasePersistance::getUrlId("hey1");
+
 ?>
