@@ -30,6 +30,9 @@ require_once "dataBasePersistance.php";
 class crawler
 {
     private static $urlQueue;
+    private static $parentIdQueue;
+    private static $googleId = 0; // from my data base -- hard coded
+
     public function __construct()
     {
         newLine();
@@ -57,6 +60,7 @@ class crawler
             $url = fgets($filePtr);
             $url = trim($url);
             self::$urlQueue[] = $url;
+            self::$parentIdQueue[] = self::$googleId;
         }
 
         return true;
@@ -71,16 +75,16 @@ class crawler
         $currentDepth = 0;
         $currentWidth = 0;
         $exploredUrlsCount = 0;
-
         while(count(self::$urlQueue) != 0)
         {
-            $url = array_shift(self::$urlQueue);
-
+            $url = array_shift(self::$urlQueue); // absolute url
+            $parentId = array_shift(self::$parentIdQueue);
+            
             // request
             $response = httpRequester::request($url);
             $statucCode = $response['status_code'];
             $contentType = $response['content_type'];
-
+            // request failure 
             if($response['status_code'] != 200 || 
                 $response['content_type'] !== "text/html"){    
                     /*
@@ -90,12 +94,9 @@ class crawler
                          . " and content type : " . $response['content_type'];
                     newLine();
                     */
-
                     continue;
                 }
-
             $htmlBody = $response['body'];
-            // end of request
 
             // [Debuging]
             echo "status code : " . $statucCode . " content type : " 
@@ -106,12 +107,12 @@ class crawler
 
             // parsing
             $htmlInfo = htmlPasrer::parse($htmlBody);
-            // get meta Data 
             $metaData = $htmlInfo['metaData'];
-            // end of parsing 
 
             //  persist current url
-            /* */
+            $currentPageId = dataBasePersistance::insertPage($url, $metaData);
+            // persist pointing relation 
+            dataBasePersistance::insertPointing($parentId, $currentPageId);
 
             // insert hrefs into urlQueue
             $hrefs = $htmlInfo['anchorHrefs'];
@@ -131,6 +132,7 @@ class crawler
                 $absHref = urlResolver::resolve($url, $href);
 
                 self::$urlQueue[] = $absHref;
+                self::$parentIdQueue[] = $currentPageId; // parent page 
             }
 
             // persist images links into the data base
@@ -149,8 +151,7 @@ class crawler
 
                 // resolve 
                 $absImgSrc = urlResolver::resolve($url, $imgSrc);
-
-                /** persisit to the data base  */
+                dataBasePersistance::insertImg($absImgSrc, $currentPageId);
             }
 
             $exploredUrlsCount +=1;
@@ -160,8 +161,4 @@ class crawler
     }
 
 }
-
-$fileName = "files/seed.txt";
-crawler::crawle($fileName, 1, 1, 100);
-
 ?>

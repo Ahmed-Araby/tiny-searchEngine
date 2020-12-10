@@ -47,9 +47,9 @@ class dataBasePersistance
 
         catch (Exception $e)
         {
-            newLine();
-            echo $e;
-            newLine();
+            //newLine();
+            // echo $e; // this one will be trigered alot
+            //newLine();
             return false;
         }
         return true;
@@ -97,7 +97,7 @@ class dataBasePersistance
 
         catch(Exception $e){
             newLine();
-            echo $e;
+            echo "** failure in inserting page";//$e;
             newLine();
             return 0; // google id. 
         }
@@ -124,7 +124,7 @@ class dataBasePersistance
         catch (Exception $e) {
             /** unique constraint may have been violated */
             newLine();
-            echo $e;
+            echo "** failure in inserting pointing"; //$e;
             newLine();
             return false;
         }
@@ -163,7 +163,7 @@ class dataBasePersistance
             */
 
             newLine();
-            echo $e;
+            echo "** failure in getUrlId";//$e;
             newLine();
             return 0; // google id. 
         }

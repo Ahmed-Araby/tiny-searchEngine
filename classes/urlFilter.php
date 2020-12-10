@@ -27,7 +27,7 @@
      public static function filter($href)
      {
         /**
-        * 
+        * $href is not garanted to be absolute
         * true -- mean valid url to use 
         * false -- rejected url
         * this method is made to be extended very easily.

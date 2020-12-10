@@ -10,12 +10,14 @@ create table pages(
     key_words text default ""
 );
 
-
 create table images(
     id integer PRIMARY key AUTO_INCREMENT, 
     url text not null, 
     page_fk integer,
-    FOREIGN key (page_fk) REFERENCES pages(id), 
+    constraint img_page_fk FOREIGN key (page_fk)
+    REFERENCES pages(id)
+    on DELETE CASCADE
+    on UPDATE CASCADE,
     CONSTRAINT uq_img UNIQUE(url, page_fk)
 );
 
@@ -23,8 +25,16 @@ create table images(
 create table pointing(
 parent_page_fk integer, 
 child_page_fk integer,
-FOREIGN KEY (parent_page_fk) REFERENCES pages(id),
-FOREIGN KEY (child_page_fk) REFERENCES pages(id),
+constraint parent_page_fk FOREIGN KEY (parent_page_fk)
+REFERENCES pages(id)
+on DELETE CASCADE
+on UPDATE CASCADE,
+    
+CONSTRAINT child_page_fk FOREIGN KEY (child_page_fk) 
+REFERENCES pages(id)
+on DELETE CASCADE
+on UPDATE CASCADE,
+    
 PRIMARY key pointing_id (parent_page_fk, child_page_fk)
 );
 
