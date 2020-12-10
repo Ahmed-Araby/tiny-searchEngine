@@ -4,11 +4,7 @@
  * description:
     * the responsibility of this class is to check 
     * if the given url is one of the urls that we want 
-    * to ignore.
-    * urls to ignore:
-        * repeated url
-        * 
-
+    * to ignore. 
  * 
  * input:
     * href

@@ -94,7 +94,7 @@ class htmlPasrer
     public static function parse($htmlBody)
     { 
         $domObject = new DOMDocument();
-        $domObject->loadHtml($htmlBody); 
+        @ $domObject->loadHtml($htmlBody); 
 
         $absAnchorUrls = self::getAnchorHrefs($domObject);
         $absImageUrls = self::getImageSrcs($domObject);

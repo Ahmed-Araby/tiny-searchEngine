@@ -1,9 +1,5 @@
 <?php
 
-function newLine()
-{
-    echo "\n";
-}
 
 /*
 // test the substr_replace function
@@ -118,7 +114,22 @@ var_dump(explode('1', null));
 newLine();
 */
 
-// testing parser
+/*
+// testing fille open 
+require_once "HELPERS.php";
 
+$fileName = "seeds.txt";
+$filePtr = fopen($fileName, "r");
+newLine();
+if($filePtr ===  false)
+    echo "failed";
+newLine();
 
+echo "some stuff";
+*/
+
+// test empty array 
+$arr = array();
+if($arr.empty == true)
+    echo "empty";
 ?>
