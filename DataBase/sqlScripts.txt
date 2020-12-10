@@ -1,0 +1,29 @@
+create database search_engine;
+
+
+create table pages(
+    id integer PRIMARY key AUTO_INCREMENT, 
+    url text NOT NULL UNIQUE,
+    clicks int DEFAULT 0, 
+    title varchar(1000) default "", 
+    description text default "", 
+    key_words text default ""
+);
+
+create table images(
+    id integer PRIMARY key AUTO_INCREMENT, 
+    url text not null unique, 
+    page_fk integer,
+    FOREIGN key (page_fk) REFERENCES pages(id)
+);
+
+
+create table pointing(
+pointer_page_fk integer, 
+pointed_page_fk integer,
+FOREIGN KEY (pointer_page_fk) REFERENCES pages(id),
+FOREIGN KEY (pointed_page_fk) REFERENCES pages(id),
+PRIMARY key pointing_id (pointer_page_fk, pointed_page_fk)
+);
+
+insert into pages (id, url) values (0, "https://www.google.com/");

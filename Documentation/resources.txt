@@ -3,3 +3,7 @@ https://github.com/symfony/dom-crawler/blob/5.x/UriResolver.php
 
 # look at this 
 https://github.com/webmozart/path-util/blob/master/src/Path.php
+
+
+# read this one
+https://github.com/FaaPz/PDO

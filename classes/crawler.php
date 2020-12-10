@@ -108,9 +108,6 @@ class crawler
             $htmlInfo = htmlPasrer::parse($htmlBody);
             // get meta Data 
             $metaData = $htmlInfo['metaData'];
-            $description = $metaData['description'];
-            $keywords = $metaData['keywords'];
-            $title = $metaData['title'];
             // end of parsing 
 
             //  persist current url

@@ -13,3 +13,5 @@ it will return an array with only one element = empty string.
 # questions and answers 
 Q/ why php print error twice ?
 https://stackoverflow.com/questions/9001911/why-are-php-errors-printed-twice
+
+https://stackoverflow.com/questions/13283381/row-size-too-large-error-in-mysql-create-table-query
