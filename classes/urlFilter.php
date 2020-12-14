@@ -46,18 +46,25 @@
         if(strpos($href, "#") !==false)
             return false;      
         
+        
         // get absolute href
         $absHref = urlResolver::resolve($baseUrl, $href);
-
+        
+        /*
         // links that won't respond with 200 ok 
+        // this made the crawler too slow -- so I will ignore it for now.
         $_200ok = httpRequester::is_200($absHref);
         if($_200ok == false)
             return false;
+        */
         
+
+        /*
         // links that exist in the data base
         $urlExist = CheckExistence_inDataBase::is_url_exist($baseUrl);
         if($urlExist)
             return false;
+        */
         
         /*
         [to be implemented]

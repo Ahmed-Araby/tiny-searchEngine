@@ -1,5 +1,7 @@
+# work on htmlParser
+1- return alt and title information with the image
+
 # work on data base:
-1- add alt and title for images url record for  retrival 
 2- look for indices to make search faster.
 
 # work on fornt end
@@ -16,7 +18,7 @@
 1- read some stuff about it to know the best strategy for choosing links from pages 
 
 # work on data 
-1- search for initial urls to start crawling 
+1- search for i nitial urls to start crawling 
 
 #bugs 
 1- url in the location header could be relative, fix the request method in httprequester class.
@@ -26,7 +28,6 @@
 - test redirection.
 - find a better way for data base existance that will not do 
   not required database queries.
-- edit crawler to go on with the new sitting for the urlFilter class.
 
 #######################################################################################################
 

@@ -43,17 +43,26 @@ class htmlPasrer
         return $hrefs;
     }
 
-    private static function getImageSrcs($domObject)
+    private static function getImagesData($domObject)
     {
-        // return list of absolute image urls
+        /** 
+         * urls in the src attribute could be relative
+        */
+
         $imgs = $domObject->getElementsByTagName('img');
-        $srcs = array();
+        $imgsData = array();
         foreach($imgs as $img)
         {
             $src = $img->getAttribute('src');
-            $srcs [] = $src;
+            $alt = $img->getAttribute('alt');
+            $title = $img->getAttribute('title');
+
+            $imgsData [] = array("src"   => $src, 
+                                 "alt"   => $alt, 
+                                 "title" => $title);
         }
-        return $srcs;
+
+        return $imgsData;
     }
 
     private static function getMetaData($domObject)
@@ -97,12 +106,12 @@ class htmlPasrer
         @ $domObject->loadHtml($htmlBody); 
 
         $absAnchorUrls = self::getAnchorHrefs($domObject);
-        $absImageUrls = self::getImageSrcs($domObject);
+        $imgsData = self::getImagesData($domObject); // array of arrays 
         $metaData = self::getMetaData($domObject);
 
         return array(
             "anchorHrefs" => $absAnchorUrls,
-            "imgSrcs"  => $absImageUrls, 
+            "imgsData"  => $imgsData, 
             "metaData"      =>$metaData 
         );
     }

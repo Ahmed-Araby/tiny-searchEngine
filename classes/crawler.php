@@ -119,7 +119,7 @@ class crawler
             foreach($hrefs as $href)
             {
                 // filter
-                if(urlFilter::filter($href) === false){
+                if(urlFilter::filter($url, $href) === false){
                     /*
                     newLine();
                     echo "href : " . $href . "is rejected ";
@@ -136,11 +136,15 @@ class crawler
             }
 
             // persist images links into the data base
-            $imgSrcs = $htmlInfo['imgSrcs'];
-            foreach($imgSrcs as $imgSrc)
+            $imgsData = $htmlInfo['imgsData'];
+            foreach($imgsData as $imgData)
             {
                 // filter 
-                if(urlFilter::filter($imgSrc) === false){
+                $imgSrc = $imgData['src'];
+                $imgAlt = $imgData['alt'];
+                $imgTitle = $imgData['title'];
+
+                if(urlFilter::filter($url, $imgSrc) === false){
                     /*
                     newLine();
                     echo "imgSrc : " . $imgSrc . "is rejected ";
@@ -151,7 +155,7 @@ class crawler
 
                 // resolve 
                 $absImgSrc = urlResolver::resolve($url, $imgSrc);
-                dataBasePersistance::insertImg($absImgSrc, $currentPageId);
+                dataBasePersistance::insertImg($absImgSrc, $imgAlt, $imgTitle, $currentPageId);
             }
 
             $exploredUrlsCount +=1;
