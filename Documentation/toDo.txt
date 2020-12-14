@@ -1,10 +1,3 @@
-# work on filter class:
-2- approve only links that is not exist in the pages table, to reduce the queue size 
-    - build checkExistance in the data base class 
-    - use it to check the existance of the url we want to filter.
-    
-3- think about some thing
-
 # work on data base:
 1- add alt and title for images url record for  retrival 
 2- look for indices to make search faster.
@@ -30,7 +23,11 @@
 
 
 # random to dos 
-test redirection
+- test redirection.
+- find a better way for data base existance that will not do 
+  not required database queries.
+- edit crawler to go on with the new sitting for the urlFilter class.
+
 #######################################################################################################
 
 # work on hand 

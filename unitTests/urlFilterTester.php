@@ -15,7 +15,7 @@ class urlFilterTester
     public static function test_javaScriptLink1()
     {
         $url = "javascript:someFunction()";
-        $valid = urlFilter::filter("", $url);
+        $valid = urlFilter::filter($url, $url);
         newLine();
     
         if ($valid !== false)
@@ -55,13 +55,13 @@ class urlFilterTester
     public static function test_is_200()
     {
         // working url 
-        $url1 = "https://ichef.bbc.co.uk/wwhp/144/cpsprodpb/66C4/production/_115980362_hi064727083.jpg";
-        $_200ok1 = httpRequester::is_200($url1);
+        $url1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKDZXX4RiN6HaNwY20GO4q_5pokzIwiJC-_A&usqp=CAU";
+        $_200ok1 = urlFilter::filter($url1, $url1);
         if($_200ok1 !=true)
             throw new Exception("in test_is_200 -- url1 should return 200 ok");
         // not wokring url 
         $url2 = "https://ichef.bbc.co.uk/wwhp/144/cpsprodpb/66C4/production/_115980362_hi064727083";
-        $_200ok2 = httpRequester::is_200($url2);
+        $_200ok2 = urlFilter::filter($url2, $url2);
         if($_200ok2 !=false)
             throw new Exception("in test_is_200 -- url2 should fail in loading ");
 
@@ -71,6 +71,27 @@ class urlFilterTester
         echo "success in test_is_200";
         newLine();
         return true;
+    }
+
+    public static function test_urlExistinDataBase()
+    {
+        $imgUrl1 = "https://ichef.bbc.co.uk/wwhp/144/cpsprodpb/14E68/production/_115980658_tv064724422.jpg";
+        $pageUrl1 = "https://www.google.com/";
+        
+        $valid1 = urlFilter::filter($imgUrl1, $imgUrl1);
+        if($valid1 == true)
+            throw new Exception("test_urlExistinDataBase image exist in the data base");
+
+        $valid2 = urlFilter::filter($pageUrl1, $pageUrl1);
+        if($valid2 == true)
+            throw new Exception("test_urlExistinDataBase page exist in the data base");
+
+        return true;
+    }
+
+    public static function test_urlNotExistinDataBase()
+    {
+        
     }
 
     public static function test_fragmentLink()
@@ -87,7 +108,8 @@ class urlFilterTester
         self::test_javaScriptLink2();
         self::test_fragmentLink();
         self::test_is_200();
-        
+        self::test_urlExistinDataBase();
+              
         return ;
     }
 }

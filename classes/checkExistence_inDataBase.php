@@ -88,5 +88,13 @@ class checkExistence_inDataBase
         return true;
     }
 
+    public static function is_url_exist($absUrl)
+    {
+        if(self::is_page_url_exist($absUrl) ||
+            self::is_img_url_exist($absUrl))
+            return true;
+        return false;
+    }
+
 }
 ?>
