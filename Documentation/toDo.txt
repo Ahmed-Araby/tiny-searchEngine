@@ -1,6 +1,8 @@
 # work on filter class:
-1- aprove only links that returns 200 ok. [Done]
 2- approve only links that is not exist in the pages table, to reduce the queue size 
+    - build checkExistance in the data base class 
+    - use it to check the existance of the url we want to filter.
+    
 3- think about some thing
 
 # work on data base:
