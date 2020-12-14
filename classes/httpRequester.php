@@ -86,6 +86,50 @@
 
         return $response;
      }
+     
+     public static function is_200($absUrl)
+     {
+        /**
+         * input: absolute url
+        * this function will check if the response for this url is 200 or redirection
+        * which mean the url is working
+        * output:
+        * true for 200 ok or redirection
+        * false other wise.
+        */
+
+        $curl = curl_init();         
+        curl_setopt_array($curl,
+            array(
+                CURLOPT_URL => $absUrl, 
+                CURLOPT_HEADER => false,  // dont return the headers in the response. 
+                CURLOPT_RETURNTRANSFER => true   // prevent the extension from printing the response. 
+                )
+            );
+
+        curl_exec($curl); // no need for body
+        $statusCode  = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+
+        if($statusCode == 200)
+            return true;
+
+        else if($statusCode >=300 && 
+                $statusCode <400 && 
+                self::$redirected == false)
+        {
+            self::$redirected = true; // only allow 1 redirection
+
+            $redirectionUrl = curl_getinfo($curl, CURLINFO_REDIRECT_URL);
+            $absRedirectionUrl = urlResolver::resolve($absUrl, $redirectionUrl);
+            $_200ok = self::is_200($absRedirectionUrl);
+
+            self::$redirected = false;
+
+            return $_200ok;
+        }
+
+        return false;
+     }
  }
 
 ?>

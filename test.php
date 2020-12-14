@@ -128,8 +128,21 @@ newLine();
 echo "some stuff";
 */
 
+/*
 // test empty array 
 $arr = array();
 if($arr.empty == true)
     echo "empty";
+*/
+
+// test exception message 
+try{
+    throw new Exception("execption here ");
+}
+catch(Exception $e){
+    echo $e->getMessage();
+}
+
+
+
 ?>

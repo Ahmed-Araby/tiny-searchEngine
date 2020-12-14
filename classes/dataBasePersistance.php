@@ -23,6 +23,10 @@ class dataBasePersistance
             newLine();
             
             self::$pdo = new PDO(self::$pdoUrl, self::$user, self::$pass);
+            /*
+            we also could specify the error model to be warnnign 
+            which will help the app not to hult on data base errors.
+            */
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             newLine();
             echo "connection success ";

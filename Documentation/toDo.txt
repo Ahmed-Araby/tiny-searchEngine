@@ -1,3 +1,35 @@
-1- make sure that filter abrove only links that will return 200 ok 
-    as this is the bug for the mulformed images we have in the data base.
-    
+# work on filter class:
+1- aprove only links that returns 200 ok. [Done]
+2- approve only links that is not exist in the pages table, to reduce the queue size 
+3- think about some thing
+
+# work on data base:
+1- add alt and title for images url record for  retrival 
+2- look for indices to make search faster.
+
+# work on fornt end
+1- get front end files from the course 
+2- plan for the MVC pattern 
+
+# work on the site backEnd 
+1- work on index file 
+2- work on search results page
+    1- provide search results from the data base
+    2- pagination system
+
+# work on the crawler
+1- read some stuff about it to know the best strategy for choosing links from pages 
+
+# work on data 
+1- search for initial urls to start crawling 
+
+#bugs 
+1- url in the location header could be relative, fix the request method in httprequester class.
+
+
+# random to dos 
+test redirection
+#######################################################################################################
+
+# work on hand 
+-> filter class -> point.1
