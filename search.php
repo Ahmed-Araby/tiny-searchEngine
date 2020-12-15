@@ -1,6 +1,7 @@
 <?php
     require_once "Controllers/pagesController.php";
 	require_once "Controllers/imagesController.php";
+	require_once "utils/paginationSystem.php";
 
 	if(isset($_GET["term"])) {
 		$term = $_GET["term"];
@@ -103,6 +104,11 @@
 						$title = $res['title'];
 						$description = $res['description'];
 
+						/*
+							format theses information in a more a approriate way 
+						 */
+						$title = substr($title, 0, 50);
+						$description = substr($description, 0, 100);
 						echo "<div class='resultContainer'>
 
 								<h3 class='title'>
@@ -137,7 +143,46 @@
 				}
 			?>
 
+		</div>
 
+		<div class='paginationSystem'>
+			<?php
+				// constants
+				$resultsPerPage = 10;
+				$numberOfHrefs = 10;
+				$totalNumberOfPages = ceil($numResults / $resultsPerPage);
+
+				// get boundries
+				$paginationObj = new paginationSystem();
+				$boundries = $paginationObj->getBoundries($totalNumberOfPages,$numberOfHrefs,
+															$pageNumber);
+
+				$start = $boundries['start'];
+				$end = $boundries['end'];
+
+				// display 
+
+				// previous button 
+				if($start !=1){
+					$prevPageNumber = $pageNumber -1;
+					$href = "search.php?term=$term&type=$type&page=$prevPageNumber";
+					echo "<a href='$href'>Prev</a>";
+				}
+
+				// hrefs 
+				for($index = $start; $index <=$end; $index+=1)
+				{
+					$href = "search.php?term=$term&type=$type&page=$index";
+					echo "<a class='paginationHref' href='$href' > $index <a>";
+				}
+
+				// next button
+				if($end !=$totalNumberOfPages){
+					$nextPageNumber = $pageNumber +1;
+					$href = "search.php?term=$term&type=$type&page=$nextPageNumber";
+					echo "<a href='$href'>Next</a>";
+				}
+			?>
 		</div>
 
 

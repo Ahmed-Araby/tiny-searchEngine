@@ -22,7 +22,13 @@
 - test redirection.
 - find a better way for data base existance that will not do 
   not required database queries.
+
 - trim search term 
+- format the description text
+- change the unique constraint  in images table of the (url , and page_fk) and make it 
+  for url 
+  
+
 
 #######################################################################################################
 
