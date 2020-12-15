@@ -1,6 +1,3 @@
-# work on htmlParser
-1- return alt and title information with the image
-
 # work on data base:
 2- look for indices to make search faster.
 
@@ -19,10 +16,6 @@
 
 # work on data 
 1- search for i nitial urls to start crawling 
-
-#bugs 
-1- url in the location header could be relative, fix the request method in httprequester class.
-
 
 # random to dos 
 - test redirection.
