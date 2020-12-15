@@ -18,7 +18,8 @@
 		<div class="mainSection">
 
 			<div class="logoContainer">
-				<img src="assets/images/doodleLogo.png" title="Logo of our site" alt="Site logo">
+				<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+				 title="Logo of our site" alt="Site logo">
 			</div>
 
 

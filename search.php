@@ -35,7 +35,7 @@
 
 				<div class="logoContainer">
 					<a href="index.php">
-						<img src="assets/images/doodleLogo.png">
+						<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
 					</a>
 				</div>
 

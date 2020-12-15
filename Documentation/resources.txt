@@ -7,3 +7,13 @@ https://github.com/webmozart/path-util/blob/master/src/Path.php
 
 # read this one
 https://github.com/FaaPz/PDO
+
+
+
+# search engine seed urls 
+https://www.seobythesea.com/2010/05/what-makes-a-good-seed-site-for-search-engine-web-crawls/
+
+
+
+ # how to build a search engine 
+ 

@@ -1,16 +1,3 @@
-# work on data base:
-2- look for indices to make search faster.
-
-# work on fornt end
-1- get front end files from the course 
-2- plan for the MVC pattern 
-
-# work on the site backEnd 
-1- work on index file 
-    1- change the logo and other stuff 
-
-2- work on search results page
-    2- pagination system
 
 # work on the crawler
 1- read some stuff about it to know the best strategy for choosing links from pages 
