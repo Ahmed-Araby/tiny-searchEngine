@@ -20,7 +20,6 @@ class imagesModel
             $searchTerm = "%" . $searchTerm . "%";
             $query = 'select count(*)
                         from images 
-                        on images.page_fk = pages.id
                         where alt like ? or 
                             title like ?';
 
@@ -55,19 +54,19 @@ class imagesModel
             
             $searchTerm = "%" . $searchTerm . "%";
 
-            $query = 'select images.url, pages.url, alt, title
+            $query = 'select images.url as imageUrl, pages.url as pageUrl, alt, images.title
                         from images 
                         left join pages 
                         on images.page_fk = pages.id
                         where alt like ? or 
-                            title like ?
+                            images.title like ?
                             limit ?, ?';
             $stmt = $pdo->prepare($query);
 
             $stmt->bindValue(1, $searchTerm);
             $stmt->bindValue(2, $searchTerm);
-            $stmt->bindValue(3, $searchTerm, PDO::PARAM_INT);
-            $stmt->bindValue(4, $searchTerm, PDO::PARAM_INT);
+            $stmt->bindValue(3, $startOffset, PDO::PARAM_INT);
+            $stmt->bindValue(4, $limit, PDO::PARAM_INT);
 
             $success = $stmt->execute();
             if(!$success)

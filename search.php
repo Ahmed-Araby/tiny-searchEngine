@@ -1,6 +1,6 @@
 <?php
     require_once "Controllers/pagesController.php";
-    require_once "Models/pagesModel.php";
+	require_once "Controllers/imagesController.php";
 
 	if(isset($_GET["term"])) {
 		$term = $_GET["term"];
@@ -11,6 +11,7 @@
 	
 	$type = isset($_GET["type"]) ? $_GET["type"] : "sites";
 	$pageNumber = isset($_GET['page'])?$_GET['page']:1;
+	$requestNumber = isset($_GET['requestNumber'])?$_GET['requestNumber']:1;
 ?>
 
 
@@ -118,8 +119,21 @@
 
 			<?php 
 				if($type == 'images'){
+					$imagesControllerObj = new imagesController();
 
+					$numResults = $imagesControllerObj->getTotNumOfImgsResults($term);
+					echo "<p> $numResults </p>";
 
+					$imgsResult = $imagesControllerObj->getImagesResult($term, $requestNumber);
+
+					foreach($imgsResult as $img)
+					{
+						$url = $img['imageUrl'];
+						$alt = $img['alt'];
+						$title = $img['title'];
+
+						echo "<img src='$url' alt='$alt' title='$title' width='300' height='200'>";
+					}
 				}
 			?>
 
