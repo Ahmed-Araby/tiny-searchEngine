@@ -20,7 +20,7 @@ class pagesModel
             if($pdo == null)
                 throw new Exception("exception in getImagesResults : not able to connect to the data base");
 
-            $query = "select url, title, description
+            $query = "select id, url, title, description
                       from pages 
                       where lower (title) like ? or
                             lower (description) like ? or
@@ -62,7 +62,7 @@ class pagesModel
         try{
             $pdo = pdoFactory::getPdoInstance();
             if($pdo == null)
-                throw new Exception("exception in getImagesResults : not able to connect to the data base");
+                throw new Exception("exception in getTotNumOfPagesResults : not able to connect to the data base");
 
             $query = "select count(*) 
                         from pages 
@@ -92,6 +92,33 @@ class pagesModel
         }
 
         return -1; // indicate failure
+    }
+
+    public function increasePageUrlClicks($pageId)
+    {
+        try{
+            $pdo = pdoFactory::getPdoInstance();
+            if($pdo == null)
+                throw new Exception("exception in getTotNumOfPagesResults : not able to connect to the data base");
+            
+            $query = "update pages 
+                        set clicks = clicks + 1
+                        where id = ?";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindValue(1, $pageId);
+
+            $success = $stmt->execute();
+            if(!$success)
+                throw new Exception("increasePageUrlClicks -- execution failure: failed to update page url clicks");
+            return true;
+        }
+        
+        catch(Exception $e)
+        {
+            echo $e->getMessage();
+        }
+
+        return false;
     }
 
 }

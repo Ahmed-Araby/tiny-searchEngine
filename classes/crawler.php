@@ -116,6 +116,10 @@ class crawler
 
             // insert hrefs into urlQueue
             $hrefs = $htmlInfo['anchorHrefs'];
+            echo count($hrefs) . "  href parsed";
+            newLine();
+            newLine();
+            
             foreach($hrefs as $href)
             {
                 // filter

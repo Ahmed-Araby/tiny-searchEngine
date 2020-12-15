@@ -1,3 +1,4 @@
+# crawle for a day or unitll memory get crazy which ever closer to happens.
 
 # work on the crawler
 1- read some stuff about it to know the best strategy for choosing links from pages 

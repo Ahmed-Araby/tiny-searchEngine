@@ -100,6 +100,7 @@
 					
 					echo "<p class='resultsCount'>$numResults results found</p>";
 					foreach($searchResults as $res){
+						$id = $res['id'];
 						$url = $res['url'];
 						$title = $res['title'];
 						$description = $res['description'];
@@ -110,9 +111,9 @@
 						$title = substr($title, 0, 50);
 						$description = substr($description, 0, 100);
 						echo "<div class='resultContainer'>
-
+								<input class='pageUrlID' type='hidden' value ='$id'>
 								<h3 class='title'>
-									<a class='result' href='$url'>
+									<a class='result' href='$url' onclick='increaseUrlClick(event)'>
 										$title
 									</a>
 								</h3>
@@ -188,6 +189,6 @@
 
 
 	</div>
-
+	<script src="js/app.js"> </script>
 </body>
 </html>
