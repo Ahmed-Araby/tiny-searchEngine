@@ -18,3 +18,11 @@ https://stackoverflow.com/questions/13283381/row-size-too-large-error-in-mysql-c
 
 - add unique constraint to more than 1 column combined
 https://stackoverflow.com/questions/15800250/add-unique-constraint-to-combination-of-two-columns
+
+
+#character encoding stuff 
+
+/*ALTER DATABASE search_engine CHARACTER SET utf8 COLLATE utf8_unicode_ci;*/
+ALTER TABLE pages CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+

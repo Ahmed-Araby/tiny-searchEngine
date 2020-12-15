@@ -135,6 +135,7 @@ if($arr.empty == true)
     echo "empty";
 */
 
+/*
 // test exception message 
 try{
     throw new Exception("execption here ");
@@ -143,6 +144,47 @@ catch(Exception $e){
     echo $e->getMessage();
 }
 
+*/
 
 
+require_once "pdoFactory.php";
+// test utf8 encoding 
+/*
+this one succeded in inserting the arabic chars in the right encoding
+$v = "احمد عربى " ;
+echo $v;
+echo "\n";
+
+$pdo = pdoFactory::getPdoInstance();
+$query = "insert into pages values (2, 'ahmed', 0, ? , ? , ?)";
+$stmt = $pdo->prepare($query);
+
+$stmt->bindValue(1, " بسم ");
+$stmt->bindValue(2, "الله ");
+$stmt->bindValue(3, "الرحمن");
+$success = $stmt->execute();
+
+var_dump($success);
+*/
+
+require_once "classes/httpRequester.php";
+require_once "classes/htmlParser.php";
+
+$url = "https://mawdoo3.com/";
+$response = httpRequester::request($url);
+$htmlBody = $response['body'];
+$htmlInfo = htmlPasrer::parse($htmlBody);
+
+//var_dump($response);
+$text = $htmlInfo['anchorHrefs'][9];
+
+$pdo = pdoFactory::getPdoInstance();
+$query = "insert into pages values (4, 'ah32me23d', 0, ? , ? , ?)";
+$stmt = $pdo->prepare($query);
+
+$stmt->bindValue(1, " بسم ");
+$stmt->bindValue(2, "الله ");
+$stmt->bindValue(3, $text);
+$success = $stmt->execute();
+//newLine();
 ?>
