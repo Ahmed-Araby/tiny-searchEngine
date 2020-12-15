@@ -46,6 +46,7 @@
 						<div class="searchBarContainer">
 
 							<input class="searchBox" type="text" name="term" value="<?php echo $term; ?>">
+							<input type='hidden' name='type' value="<?= $type?>">
 							<button class="searchButton">
 								<img src="assets/images/icons/search.png">
 							</button>
@@ -91,7 +92,8 @@
 
 		<div class="mainResultsSection">
 
-            <?php
+			<?php
+				$resultsPerPage = 10;
 				if($type=='sites'){
 					$pagesControllerObj = new pagesController();
 
@@ -124,32 +126,46 @@
 				}
 			?>
 
-			<?php 
-				if($type == 'images'){
-					$imagesControllerObj = new imagesController();
+			<div class="imageResults">
+				<?php 
+					$resultsPerPage = 30;
+					if($type == 'images'){
+						$imagesControllerObj = new imagesController();
 
-					$numResults = $imagesControllerObj->getTotNumOfImgsResults($term);
-					echo "<p> $numResults </p>";
+						$numResults = $imagesControllerObj->getTotNumOfImgsResults($term);
+						echo "<p> $numResults </p>";
 
-					$imgsResult = $imagesControllerObj->getImagesResult($term, $requestNumber);
+						$imgsResult = $imagesControllerObj->getImagesResult($term, $requestNumber);
 
-					foreach($imgsResult as $img)
-					{
-						$url = $img['imageUrl'];
-						$alt = $img['alt'];
-						$title = $img['title'];
+						foreach($imgsResult as $img)
+						{
 
-						echo "<img src='$url' alt='$alt' title='$title' width='300' height='200'>";
+							$url = $img['imageUrl'];
+							$alt = $img['alt'];
+							$title = $img['title'];
+							if($alt)
+								$displayText = $alt;
+							else if($title)
+								$displayText = $title;
+							else 
+								$displayText = $url;
+
+							echo "<div class='gridItem'>
+									<a href='$url'>
+										<img src='$url'>
+										<span class='details'>$displayText</span>
+									</a>
+								</div>";	
+						}
 					}
-				}
-			?>
+				?>
+			</div>
 
 		</div>
 
 		<div class='paginationSystem'>
 			<?php
 				// constants
-				$resultsPerPage = 10;
 				$numberOfHrefs = 10;
 				$totalNumberOfPages = ceil($numResults / $resultsPerPage);
 
