@@ -1,23 +1,23 @@
 <?php
-    require_once "Controllers/searchController.php";
+    require_once "Controllers/pagesController.php";
     require_once "Models/pagesModel.php";
 
-	/*/if(isset($_GET["term"])) {
+	if(isset($_GET["term"])) {
 		$term = $_GET["term"];
 	}
 	else {
 		exit("You must enter a search term");
-    }*/
-    $term = "news";
+	}
+	
 	$type = isset($_GET["type"]) ? $_GET["type"] : "sites";
-	$pageNumber = 1;
+	$pageNumber = isset($_GET['page'])?$_GET['page']:1;
 ?>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Welcome to Doodle</title>
+	<title>Search Engine</title>
 
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
@@ -90,39 +90,37 @@
 		<div class="mainResultsSection">
 
             <?php
-            
-                /*
-                so this is the fornt End that I need to fill with data.
-                
-                ------- using MVC pattern ------
+				if($type=='sites'){
+					$pagesControllerObj = new pagesController();
 
-                1- take to the controller and provide the search term.
-                2- controller talk to the model to get the data.
-                3- model query the data base.
-                4- controller return back the results.
-                5- view is responsible to to render the returned information.
-                */
+					$numResults = $pagesControllerObj->getTotalNumOfPagesResults($term);
+					$searchResults = $pagesControllerObj->getPagesResults($term, $pageNumber);
+					
+					echo "<p class='resultsCount'>$numResults results found</p>";
+					foreach($searchResults as $res){
+						$url = $res['url'];
+						$title = $res['title'];
+						$description = $res['description'];
 
-                $numResults = searchController::getTotalNumOfResults($term);
-                $searchResults = searchController::getSearchResults($term, $type, $pageNumber);
-                
-                echo "<p class='resultsCount'>$numResults results found</p>";
-                foreach($searchResults as $res){
-                    $url = $res['url'];
-                    $title = $res['title'];
-                    $description = $res['description'];
+						echo "<div class='resultContainer'>
 
-                    echo "<div class='resultContainer'>
+								<h3 class='title'>
+									<a class='result' href='$url'>
+										$title
+									</a>
+								</h3>
+								<span class='url'>$url</span>
+								<span class='description'>$description</span>
+							</div>";
+					}
+				}
+			?>
 
-                            <h3 class='title'>
-                                <a class='result' href='$url'>
-                                    $title
-                                </a>
-                            </h3>
-                            <span class='url'>$url</span>
-                            <span class='description'>$description</span>
-                        </div>";
-                }
+			<?php 
+				if($type == 'images'){
+
+
+				}
 			?>
 
 

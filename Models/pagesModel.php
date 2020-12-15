@@ -1,37 +1,25 @@
 <?php 
 
 require_once "HELPERS.php";
+require_once "pdoFactory.php";
 
 class pagesModel
 {
-    private static $pdo     = null;
-    private static $pdoUrl  = "mysql:host=localhost;dbname=search_engine";
-    private static $user    = 'root'; // this user have all privalage over my data base 
-    private static $pass    = ''; // no pass 
-
-
     public function __construct()
     {
         
     }
 
-    public static function connect()
-    {
-        if(self::$pdo == null){
-            self::$pdo = new PDO(self::$pdoUrl, self::$user, self::$pass);
-            self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        return ;
-    }
-
-
-    public static function  getSearchResults($searchTerm, $startOffset, $limit)
+    public function  getPagesResults($searchTerm, $startOffset, $limit)
     {
         /**
          * support paginatioon
          */
         try{
-            self::connect();
+            $pdo = pdoFactory::getPdoInstance();
+            if($pdo == null)
+                throw new Exception("exception in getImagesResults : not able to connect to the data base");
+
             $query = "select url, title, description
                       from pages 
                       where lower (title) like ? or
@@ -39,7 +27,7 @@ class pagesModel
                             lower (key_words) like ?
                         limit ?, ?";
 
-            $stmt = self::$pdo->prepare($query);
+            $stmt = $pdo->prepare($query);
             $searchTerm = "%". strtolower($searchTerm) . "%";
             $stmt->bindValue(1, $searchTerm);
             $stmt->bindValue(2, $searchTerm);
@@ -69,17 +57,20 @@ class pagesModel
         return array(); // empty results
     }
 
-    public static function getTotalNumberOfResults($searchTerm)
+    public function getTotNumOfPagesResults($searchTerm)
     {
         try{
-            self::connect();
+            $pdo = pdoFactory::getPdoInstance();
+            if($pdo == null)
+                throw new Exception("exception in getImagesResults : not able to connect to the data base");
+
             $query = "select count(*) 
                         from pages 
                         where lower (title) like ? or
                              lower (description) like ? or
                               lower (key_words) like ?";
                               
-            $stmt = self::$pdo->prepare($query);
+            $stmt = $pdo->prepare($query);
             $searchTerm = "%". strtolower($searchTerm) . "%";
             $stmt->bindValue(1, $searchTerm);
             $stmt->bindValue(2, $searchTerm);

@@ -7,9 +7,11 @@
 
 # work on the site backEnd 
 1- work on index file 
+    1- change the logo and other stuff 
+
 2- work on search results page
-    1- provide search results from the data base
     2- pagination system
+    3- handle searching for sites or images
 
 # work on the crawler
 1- read some stuff about it to know the best strategy for choosing links from pages 
@@ -25,4 +27,6 @@
 #######################################################################################################
 
 # work on hand 
--> filter class -> point.1
+-> handle different search types 
+-> build pagination system 
+
