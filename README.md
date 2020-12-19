@@ -2,21 +2,25 @@
 
 ## introducction:
 this project was build with the aim to enhance my knowledge with the HTTP protocol (which it did)
-and practice a little bit of PHP and writing a clean code that could be understood by others (I hope that I did).
+and practice a little bit with PHP and writing a clean code that could be understood by others (I hope that I did).
 
 ## start the project:
-as easy as cloning the repo into htdocs file of xampp
+* for using the searchEngine webSite
+  as easy as cloning the repo into htdocs file of xampp
 
-then lunch xampp and mysql
-and open this url
+  then lunch xampp and mysql
+  and open this url
 
-http://localhost/tiny-searchEngine/index.php
+  http://localhost/tiny-searchEngine/index.php
+* for crawling the web 
+  * you have to provide some seed urls into the seed.txt file 
+  * then run "php launchCrawler.php" file from the command line withing the project folder.
 
 ## components of the project
 * crawler
   * urlResolver 
     this class will help in converting the hyper references in the anchor tag element to absolute url 
-    to be crawled there is many cases that a href could be related to the current url of the page 
+    to be crawled there are many cases that a href could be related to the current url of the page 
     or not related at all 
   * urlFilter 
     this class will allow the crawler to discard some bad urls/href
@@ -44,8 +48,8 @@ http://localhost/tiny-searchEngine/index.php
   for the user to enter the search term and get the results, the site provide search results as links to webPages and seach results as images
   that are related to the search term.
   
-## some heigh lights
-* image search results page is infinitie scrole like google image search page, implemented 
+## highlights
+* image search results page is infinitie scroll like google image search result page, implemented 
   using js in the front end that will listen to the event of reaching the end of the page then 
   ask the server for more search results.
 * masonry java script library was used to provide the UI grid lay out of the images result page
