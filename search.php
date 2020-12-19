@@ -12,7 +12,7 @@
 	
 	$type = isset($_GET["type"]) ? $_GET["type"] : "sites";
 	$pageNumber = isset($_GET['page'])?$_GET['page']:1;
-	$requestNumber = isset($_GET['requestNumber'])?$_GET['requestNumber']:1;
+	$requestNumber = isset($_GET['reqNum'])?$_GET['reqNum']:1;
 ?>
 
 
@@ -45,7 +45,7 @@
 
 						<div class="searchBarContainer">
 
-							<input class="searchBox" type="text" name="term" value="<?php echo $term; ?>">
+							<input class="searchBox" id = 'searchTerm' type="text" name="term" value="<?php echo $term; ?>">
 							<input type='hidden' name='type' value="<?= $type?>">
 							<button class="searchButton">
 								<img src="assets/images/icons/search.png">
@@ -63,13 +63,13 @@
 
 				<ul class="tabList">
 
-					<li class="<?php echo $type == 'sites' ? 'active' : '' ?>">
+					<li class="<?php echo $type == 'sites' ? 'active' : '' ?>" data-type='sites'>
 						<a href='<?php echo "search.php?term=$term&type=sites"; ?>'>
 							Sites
 						</a>
 					</li>
 
-					<li class="<?php echo $type == 'images' ? 'active' : '' ?>">
+					<li class="<?php echo $type == 'images' ? 'active' : '' ?>" data-type='images'>
 						<a href='<?php echo "search.php?term=$term&type=images"; ?>'>
 							Images
 						</a>
@@ -126,9 +126,8 @@
 				}
 			?>
 
-			<div class="imageResults">
+			<div class="imageGrid">
 				<?php 
-					$resultsPerPage = 30;
 					if($type == 'images'){
 						$imagesControllerObj = new imagesController();
 
@@ -165,6 +164,7 @@
 
 		<div class='paginationSystem'>
 			<?php
+			if($type !='images'){
 				// constants
 				$numberOfHrefs = 10;
 				$totalNumberOfPages = ceil($numResults / $resultsPerPage);
@@ -199,12 +199,16 @@
 					$href = "search.php?term=$term&type=$type&page=$nextPageNumber";
 					echo "<a href='$href'>Next</a>";
 				}
+			}
 			?>
 		</div>
 
 
 
 	</div>
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
 	<script src="js/app.js"> </script>
+	<script src="js/images.js"> </script>
 </body>
 </html>

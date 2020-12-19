@@ -54,7 +54,8 @@ class imagesModel
             
             $searchTerm = "%" . $searchTerm . "%";
 
-            $query = 'select images.url as imageUrl, pages.url as pageUrl, alt, images.title
+            $query = 'select images.url as imageUrl, pages.url as pageUrl,
+                                     alt, images.title, images.id
                         from images 
                         left join pages 
                         on images.page_fk = pages.id

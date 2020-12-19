@@ -5,7 +5,7 @@ require_once "Models/imagesModel.php";
 class imagesController 
 {
     private $imagesPerRequest;
-    public function __construct($imagesPerRequest = 30)
+    public function __construct($imagesPerRequest = 100)
     {
         $this->imagesPerRequest = $imagesPerRequest;
     }
@@ -37,4 +37,3 @@ class imagesController
         return $imageResults;
     }
 }
-?>

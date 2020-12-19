@@ -254,3 +254,7 @@ body {
 .gridItem:hover .details {
 	visibility: visible;
 }
+
+.imageGrid{
+	margin-left: 70px;
+}

@@ -26,3 +26,5 @@ https://stackoverflow.com/questions/15800250/add-unique-constraint-to-combinatio
 ALTER TABLE pages CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
+# why innerHtml += is bad practice 
+https://stackoverflow.com/questions/11515383/why-is-element-innerhtml-bad-code
